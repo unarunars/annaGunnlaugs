@@ -1,0 +1,47 @@
+<div class = main >
+    <div class= "banner">
+        <div class= "umhvefing"  >
+            <div class = "grid" *ngIf = "!showFullImg">
+            <h3>{{this.chosen}}</h3>
+                
+                <mat-grid-list cols = "4" rowHeight = "1:1">
+                    <mat-grid-tile *ngFor = "let pic of _albums; let i = index"> 
+                        <img class= "img" [src]="pic.src" (click) = open(i)>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+            <div class= "fullImgContainer" *ngIf = "showFullImg">
+                <button mat-button *ngIf = "showLeft" (click) = "nextImg()">
+                    <span class="material-icons" >
+                        keyboard_arrow_left
+                    </span>
+                    
+                </button>
+                <img [src] = "fullImgUrl">
+                <button mat-button *ngIf = "showRight" (click) = "lastImg()">
+                    <span class="material-icons">
+                        keyboard_arrow_right
+                    </span>
+                </button>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <div class = "list">
+        <button mat-button *ngIf = "showFullImg" (click) = "goBack()">Til baka</button>
+        <button mat-button (click) = "goHome()">Forsíða/Home</button>
+        <!--<button mat-button (clicl) = "goCv()">Um mig- eða hvað hehe</button>-->
+        <button mat-button (click) = "go2019()">2019</button>
+        <button mat-button (click) = "go2018()">2018</button>
+        <button mat-button (click) = "go2009()">2009</button>
+        <button mat-button (click) = "go2004()">2004</button>
+        <button mat-button (click) = "go1987()">1987</button>
+        <button mat-button (click) = "go1980()">1980</button>
+        
+    </div>
+
+</div>
+
