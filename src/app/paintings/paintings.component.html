@@ -1,8 +1,10 @@
 <div class = main >
     <div class= "banner">
+        
         <div class= "umhvefing"  >
+            <img *ngIf = "_albums.length === 0" src = "../../assets/img/banner_art.jpg">
             <div class = "grid" *ngIf = "!showFullImg">
-            <h3>{{this.chosen}}</h3>
+            <p>{{this.chosen}}</p>
                 
                 <mat-grid-list cols = "4" rowHeight = "1:1">
                     <mat-grid-tile *ngFor = "let pic of _albums; let i = index"> 
@@ -35,10 +37,29 @@
         <button mat-button (click) = "goHome()">Forsíða/Home</button>
         <!--<button mat-button (clicl) = "goCv()">Um mig- eða hvað hehe</button>-->
         <button mat-button (click) = "go2019()">2019</button>
-        <button mat-button (click) = "go2018()">2018</button>
+        <button mat-button (click) = "go2018()">2018 - Listamessa</button>
+        <button mat-button (click) = "go2018b()">2018</button>
+
+        <button mat-button (click) = "go2017()">2017</button>
+
+        <button mat-button (click) = "go2015()">2015</button>
+        <button mat-button (click) = "go20015kugun()">2015 - Kúgun</button>
+
+        <button mat-button (click) = "go2012()">2012</button>
+
+        <button mat-button (click) = "go2011()">2011</button>
         <button mat-button (click) = "go2009()">2009</button>
+        <button mat-button (click) = "go2005()">2005</button>
         <button mat-button (click) = "go2004()">2004</button>
-        <button mat-button (click) = "go1987()">1987</button>
+        <button mat-button (click) = "go2002()">2002</button>
+        <button mat-button (click) = "go1996to1998()">1996-1998</button>
+        <button mat-button (click) = "go1994()">1994</button>
+        <button mat-button (click) = "go1991()">1991</button>
+        <button mat-button (click) = "go1990()">1990</button>
+        <button mat-button (click) = "go1989()">1989</button>
+        <button mat-button (click) = "go1988()">1988</button>
+        <button mat-button (click) = "go1987()">1987 - 7 dagar</button>
+        <button mat-button (click) = "go1987b()">1987</button>
         <button mat-button (click) = "go1980()">1980</button>
         
     </div>

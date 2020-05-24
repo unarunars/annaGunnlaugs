@@ -1,15 +1,15 @@
 <div class = main *ngIf = "show">
     <div class= "banner" *ngIf = "!showCv">
-        <p>Banners</p>
+        <img src = '../../assets/img/bannerinn.jpg'>
     </div>
     <div class="cv" *ngIf = "showCv">
         <img src="../../assets/img/cv2020.jpg">
     </div>
     <div class = "list">
-        <button mat-button routerLink = "/paintings" routerLinkActive="active" >myndlist/paintings</button>
-        <button mat-button routerLink = "/design" routerLinkActive="active">grafísk hönnun/graphics-design</button>
-        <button mat-button *ngIf = "!showCv" (click) = "goCv()">ferilskrá/cv</button>
-        <button mat-button *ngIf = "showCv" (click) = "goBack()">Til baka/back</button>
+        <button mat-button routerLink = "/paintings" routerLinkActive="active" >myndlist / paintings</button>
+        <button mat-button *ngIf = "!showCv" (click) = "goCv()">ferilskrá / cv</button>
+        <button mat-button routerLink = "/contact" routerLinkActive="active">hafa samband / contact</button>
+        <button mat-button *ngIf = "showCv" (click) = "goBack()">Til baka / back</button>
 
     </div>
 </div>

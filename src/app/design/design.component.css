@@ -4,18 +4,20 @@
     display: flex;
     width: 100%;
 }
-.banner{
+.about{
     background-color: white;
     display: flex;
     flex-direction: column;
     width: 60%;
+    position: relative;
 }
 button{
     background-color: gray;
     color: white;
     text-align: left;
     align-content: center;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Coda', cursive;
+    
 }
 .list{
     background-color: gray;
@@ -23,6 +25,24 @@ button{
     flex-direction: column;
     width: 40%;
     position: fixed;
-    top: 45%;
+    padding-top: 35%;
     left: 60%;
+    font-family: 'Coda', cursive;
+}
+.about p{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Coda', cursive;
+    align-content: center;
+    line-height: 1.7;
+    color: gray;
+    
+}
+.about a{
+    text-decoration: none;
+    color: gray;
+    line-height: 1.7;
 }
