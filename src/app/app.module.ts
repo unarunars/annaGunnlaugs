@@ -9,7 +9,13 @@ import {MatButtonModule} from '@angular/material/button';
 import { PaintingsComponent } from './paintings/paintings.component';
 import { DesignComponent } from './design/design.component';
 import {MatGridListModule} from '@angular/material/grid-list';
-
+import {MatInputModule} from '@angular/material/input';
+import { AdminComponent } from './admin/admin.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { ChangePaintingsComponent } from './change-paintings/change-paintings.component';
+import { ChangeCVComponent } from './change-cv/change-cv.component';
+import { HttpClientModule } from '@angular/common/http';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -18,6 +24,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MainComponent,
     PaintingsComponent,
     DesignComponent,
+    AdminComponent,
+    ChangePaintingsComponent,
+    ChangeCVComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +34,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
     BrowserAnimationsModule,
     MatButtonModule,
     MatGridListModule,
-    
+    MatTabsModule,
+    HttpClientModule,
+    MatInputModule,
+    MatProgressBarModule
   ],
   providers: [
   ],

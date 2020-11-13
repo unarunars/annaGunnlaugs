@@ -1,0 +1,47 @@
+<div *ngIf = "!renderToShow">
+<h1>Sýningar</h1>
+
+<div class = "show" *ngFor = "let show of map">
+    <h3>{{show.name}}</h3>
+    <p>{{show.description}}</p>
+    <button mat-button (click) = "goToShow(show)" >Fara í möppu</button>
+</div>
+<div>
+  <h3>Bæta við sýningu</h3>
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Titill </mat-label>
+          <input matInput (keyup)="onKeyTitle($event)" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Texti</mat-label>
+          <textarea matInput (keyup)="onKeyDescription($event)"></textarea>
+        </mat-form-field>
+      </form>
+    <button mat-button (click) = "createNewMap()" >Staðfesta</button>
+</div>
+</div>
+<div *ngIf = "renderToShow">
+  <h1>{{showTitle}}</h1>
+  <p>{{showDescription}}</p>
+  <div *ngFor = "let picUrl of imageBlobUrl">
+    <img [src]="picUrl">
+  </div>
+  <div>
+    <div>
+      <ul>
+          <li *ngFor="let file of files">
+              
+              <span id="file-label">
+                  {{file.data.name}}
+              </span>
+          </li>
+      </ul>
+
+      <button (click)="submitFile()">
+          Upload
+      </button>
+      <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;" />
+  </div>
+  </div>
+</div>

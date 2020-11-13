@@ -1,0 +1,13 @@
+<div *ngIf = "showAdmin">
+    <p>Velkomin</p>
+    <button mat-button (click) = "goChangePaintings()" >Myndlist</button>
+    <button mat-button (click) = "goChangeCv()">Ferilskrá</button>
+</div>
+<div *ngIf = "changePaintings">
+    <app-change-paintings></app-change-paintings>
+</div>
+<div *ngIf = "changeCv">
+    <app-change-cv></app-change-cv>
+</div>
+
+
