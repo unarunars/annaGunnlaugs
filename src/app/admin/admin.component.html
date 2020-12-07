@@ -1,13 +1,99 @@
-<div *ngIf = "showAdmin">
-    <p>Velkomin</p>
-    <button mat-button (click) = "goChangePaintings()" >Myndlist</button>
-    <button mat-button (click) = "goChangeCv()">Ferilskrá</button>
-</div>
-<div *ngIf = "changePaintings">
-    <app-change-paintings></app-change-paintings>
-</div>
-<div *ngIf = "changeCv">
-    <app-change-cv></app-change-cv>
-</div>
+<mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Innskráning">
+     <div class = "title">
+        <p>Velkomin</p>
+    
+    </div>
+    <div class = "login" *ngIf = "!isLogedIn">
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Notendanafn</mat-label>
+              <input matInput  (keyup)="onKeyUser($event)">
+            </mat-form-field>
+          
+            <mat-form-field class="example-full-width">
+                <mat-label>Lykilorð</mat-label>
+                <input matInput (keyup)="onKeyPsw($event)">
+            </mat-form-field>
+            
+          </form>
+        <!--  <button mat-button (click) = "register()" >Register</button>
+       -->   <button mat-button (click) = "login()">Skrá inn</button>
+
+    </div>
+    <div class = "text" *ngIf = "errorLogin">
+        <p>Notandi fannst ekki</p>
+    </div>
+    <div *ngIf = "isLogedIn">
+        <div class = "text">
+            <p>{{username}} er innskráður 
+            </p>
+        </div>
+        
+    </div>
+    
+    </mat-tab>
+        <mat-tab label="Sýningar">
+            <div *ngIf = "isLogedIn">
+                <app-change-paintings></app-change-paintings>
+            </div>
+            <div *ngIf = "!isLogedIn">
+                <div class = "title">
+                    <p>Verður að vera skráður inn</p>
+
+                </div>
+                <div class = "text">
+                    Vinsamlegast farðu á innskráningarsíðu og skráðu þig inn
+                </div>
+
+            </div>
+        </mat-tab>
+        <mat-tab label="Ferilsrká">
+            <div *ngIf = "isLogedIn">
+                <app-change-cv></app-change-cv>
+            </div>
+            <div *ngIf = "!isLogedIn">
+                <div class = "title">
+                    <p>Verður að vera skráður inn</p>
+
+                </div>
+                <div class = "text">
+                    Vinsamlegast farðu heim og skráðu þig inn
+                </div>
+
+            </div>
+        </mat-tab>
+        <mat-tab label="Forsíða">
+            <div *ngIf = "isLogedIn">
+                <app-change-cover></app-change-cover>
+            </div>
+            <div *ngIf = "!isLogedIn">
+                <div class = "title">
+                    <p>Verður að vera skráður inn</p>
+
+                </div>
+                <div class = "text">
+                    Vinsamlegast farðu heim og skráðu þig inn
+                </div>
+
+            </div>
+        </mat-tab>
+        <mat-tab label="Sýningar forsíða">
+            <div *ngIf = "isLogedIn">
+                <app-change-show-cover></app-change-show-cover>
+            </div>
+            <div *ngIf = "!isLogedIn">
+                <div class = "title">
+                    <p>Verður að vera skráður inn</p>
+
+                </div>
+                <div class = "text">
+                    Vinsamlegast farðu heim og skráðu þig inn
+                </div>
+
+            </div>
+        </mat-tab>
+      </mat-tab-group>
+
 
 

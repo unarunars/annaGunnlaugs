@@ -1,0 +1,36 @@
+.admin{
+    padding-top: 5%;
+}
+.title{
+    margin-top: 20%;
+    
+    font-size: xx-large;
+    text-align: center;
+}
+.text{
+    margin-top: 4%;
+    font-size: large;
+    text-align: center;
+}
+.buttons{
+    margin-top: 7%;
+    size: 10px;
+    justify-content: center;
+    display: flex;
+    justify-content: center;
+}
+.example-form {
+    margin-top: 20%;
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  .login{
+      text-align: center;
+  }

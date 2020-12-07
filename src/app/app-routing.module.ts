@@ -16,9 +16,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent},
   { path: 'adminPaintings', component: ChangePaintingsComponent},
   { path: 'adminCv', component: ChangeCVComponent},
-  { path: '**', redirectTo: '/admin', pathMatch: 'full'},
-  
-
+  { path: '**', redirectTo: '/home', pathMatch: 'full'},
   
   //{ path: '**', component: MainComponent}
 ];

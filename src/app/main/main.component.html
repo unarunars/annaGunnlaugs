@@ -1,9 +1,13 @@
 <div class = main *ngIf = "show">
-    <div class= "banner" *ngIf = "!showCv">
-        <img src = '../../assets/img/bannerinn.jpg'>
+    <div *ngIf = "!showCv">
+        <div class = "banner" *ngFor = "let picUrl of imageBlobUrlBanner;">
+            <img [src]="picUrl">
+        </div>
     </div>
-    <div class="cv" *ngIf = "showCv">
-        <img src="../../assets/img/cv2020.jpg">
+    <div  *ngIf = "showCv">
+        <div class="banner" *ngFor = "let picUrl of imageBlobUrlCv;">
+            <img [src]="picUrl">
+        </div>
     </div>
     <div class = "list">
         <button mat-button routerLink = "/paintings" routerLinkActive="active" >myndlist / paintings</button>

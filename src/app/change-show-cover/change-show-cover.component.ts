@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ConnectionService } from '../connection.service';
 
 @Component({
-  selector: 'app-change-cv',
-  templateUrl: './change-cv.component.html',
-  styleUrls: ['./change-cv.component.css']
+  selector: 'app-change-show-cover',
+  templateUrl: './change-show-cover.component.html',
+  styleUrls: ['./change-show-cover.component.css']
 })
-export class ChangeCVComponent implements OnInit {
+export class ChangeShowCoverComponent implements OnInit {
   imageBlobUrl = [];
   
   @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;
@@ -23,7 +23,7 @@ export class ChangeCVComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', file.data);
     file.inProgress = true;
-    this.connectionService.updateCv(formData).subscribe(event => {
+    this.connectionService.updateShowCover(formData).subscribe(event => {
       console.log("___________ÖÖ_________")
       console.log(event)
       });
@@ -46,7 +46,7 @@ export class ChangeCVComponent implements OnInit {
     fileUpload.click();
   }
   refresh(){
-    this.connectionService.getCv().subscribe(
+    this.connectionService.getShowCover().subscribe(
       (val) => { 
         //console.log(val);
         this.createImageFromBlob(val);
@@ -79,3 +79,4 @@ export class ChangeCVComponent implements OnInit {
   
 
 }
+

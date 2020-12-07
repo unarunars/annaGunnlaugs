@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConnectionService } from '../connection.service';
 
 @Component({
   selector: 'app-main',
@@ -6,14 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
+  imageBlobUrlCv = [];
+  imageBlobUrlBanner = [];
   chosen: string = "home";
   show: boolean = true;
   showCv: boolean = false;
-  constructor() { }
+  cv = [];
+  constructor(
+    private connectionService : ConnectionService,
+  ) { }
   //myndlist/paintings
   //grafísk hönnum/graphics-design
 
   ngOnInit(): void {
+    this.getCv();
+    this.getBanner();
 
   }
 
@@ -23,6 +31,58 @@ export class MainComponent implements OnInit {
   goCv(){
     console.log("CV");
     this.showCv = true;
+  }
+  getCv(){
+    this.connectionService.getCv().subscribe(
+      (val) => { 
+        //console.log(val);
+        this.createImageFromBlobCv(val);
+      },
+      response => {
+        console.log("POST in error", response);
+      },
+      () => {
+        console.log("POST observable is now completed.");
+      });
+  }
+  createImageFromBlobCv(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      //console.log(reader.result);
+     console.log("#######");
+    this.imageBlobUrlCv[0] = reader.result;
+  }, false);   
+  if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+
+  getBanner(){
+    this.connectionService.getCover().subscribe(
+      (val) => { 
+        //console.log(val);
+        this.createImageFromBlobBanner(val);
+      },
+      response => {
+        console.log("POST in error", response);
+      },
+      () => {
+        console.log("POST observable is now completed.");
+      });
+  }
+  createImageFromBlobBanner(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+
+      //console.log(reader.result);
+     console.log("#######");
+     
+  
+    this.imageBlobUrlBanner[0] = reader.result;
+  }, false);   
+  if (image) {
+      reader.readAsDataURL(image);
+    }
   }
 
 }

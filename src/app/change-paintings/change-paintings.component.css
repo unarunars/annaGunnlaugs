@@ -1,6 +1,10 @@
 .show{
     border-bottom-style: solid;
-    border-color: black;
+    border-color: gray;
+    border-width: 0.5px;
+}
+.main{
+  margin: 20px;
 }
 .example-form {
     min-width: 150px;
@@ -11,3 +15,25 @@
   .example-full-width {
     width: 100%;
   }
+
+.title{
+  border-bottom-style: solid;
+    border-color: gray;
+    border-width: 0.5px;
+}
+.loading{
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+img{
+  max-width: 30%;
+}
+.showHeading{
+  border-bottom-style: solid;
+    border-color: gray;
+    border-width: 0.5px;
+}
+.headerButtons{
+  display: flex;
+  justify-content: space-between;
+}

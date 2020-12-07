@@ -16,7 +16,9 @@ import { ChangePaintingsComponent } from './change-paintings/change-paintings.co
 import { ChangeCVComponent } from './change-cv/change-cv.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-
+import {MatDialogModule} from '@angular/material/dialog';
+import { ChangeCoverComponent } from './change-cover/change-cover.component';
+import { ChangeShowCoverComponent } from './change-show-cover/change-show-cover.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     AdminComponent,
     ChangePaintingsComponent,
     ChangeCVComponent,
+    ChangeCoverComponent,
+    ChangeShowCoverComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatTabsModule,
     HttpClientModule,
     MatInputModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDialogModule
   ],
   providers: [
   ],

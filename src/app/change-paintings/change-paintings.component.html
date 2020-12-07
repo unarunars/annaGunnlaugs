@@ -1,10 +1,17 @@
-<div *ngIf = "!renderToShow">
-<h1>Sýningar</h1>
+<div class = "main" *ngIf = "!renderToShow">
+  <div class = "title">
+    <h1>Sýningar</h1>
 
-<div class = "show" *ngFor = "let show of map">
+  </div>
+<div class = "loading" *ngIf = "!map">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<div class = "show" *ngFor = "let show of map; let i = index">
     <h3>{{show.name}}</h3>
     <p>{{show.description}}</p>
-    <button mat-button (click) = "goToShow(show)" >Fara í möppu</button>
+    <button mat-button (click) = "goToShow(i)" >Fara í möppu</button>
+    <button mat-button (click) = "deleteShow(show)" >Eyða möppu</button>
+
 </div>
 <div>
   <h3>Bæta við sýningu</h3>
@@ -18,27 +25,76 @@
           <textarea matInput (keyup)="onKeyDescription($event)"></textarea>
         </mat-form-field>
       </form>
-    <button mat-button (click) = "createNewMap()" >Staðfesta</button>
+    <button mat-button (click) = "createNewMap()">Staðfesta</button>
 </div>
 </div>
-<div *ngIf = "renderToShow">
-  <h1>{{showTitle}}</h1>
-  <p>{{showDescription}}</p>
-  <div *ngFor = "let picUrl of imageBlobUrl">
-    <img [src]="picUrl">
+<div class = "main" *ngIf = "renderToShow">
+  <div class = "showHeading">
+    <div class = "headerButtons">
+      <button mat-button (click) = "goBack()">Til baka</button>
+      <button mat-button (click) = "refreshButton()">
+        <span class="material-icons">
+          refresh
+          </span>  
+      </button>
+    </div>
+    
+
+    <h1>{{showTitle}}</h1>
+    <p>{{showDescription}}</p>
+  </div>
+  <div *ngIf = "isFetchingPics">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+
+  </div>
+  <div class = "title" *ngIf = "noPics">
+    <h1>Engar myndir í þessari sýningu</h1>
+  </div>
+  <div class = "show" *ngFor = "let picUrl of imageBlobUrl; let i = index">
+    <img [src]="picUrl.url">
+    <p>{{picUrl.image.id}}</p>
+    <div *ngIf = "picUrl.description">
+      <p>{{picUrl.description.title}}</p>
+      <p>{{picUrl.description.size}}</p>
+      <p>{{picUrl.description.description}}</p>
+      <p>{{picUrl.description.photoId}}</p>
+
+    </div>
+    
+    <div *ngIf = "!picUrl.description">
+      <div>
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Titill</mat-label>
+            <input matInput (keyup)="onKeyTitle($event)">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Stærð</mat-label>
+            <input matInput (keyup)="onKeySize($event)">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Leave a comment</mat-label>
+            <textarea matInput (keyup)="onKeyDescription($event)"></textarea>
+          </mat-form-field>
+        </form>
+      </div>
+      
+    <button mat-button (click) = "createPicDescription(i)">Staðfesta</button> 
+  </div>
+    <button mat-button (click) = "deletePic(picUrl.image)">Eyða mynd</button> 
+
   </div>
   <div>
     <div>
       <ul>
           <li *ngFor="let file of files">
-              
               <span id="file-label">
                   {{file.data.name}}
               </span>
           </li>
       </ul>
 
-      <button (click)="submitFile()">
+      <button mat-button (click)="submitFile()">
           Upload
       </button>
       <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;" />

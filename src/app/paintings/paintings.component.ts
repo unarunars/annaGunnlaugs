@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { ConnectionService } from '../connection.service';
+
 //import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 
 
@@ -11,29 +13,80 @@ import { Location } from '@angular/common';
 })
 export class PaintingsComponent implements OnInit {
  // items: GalleryItem[];
- _albums: any[]= [];
+ //_albums: any[]= [];
   chosen: string = "";
   showFullImg: boolean =  false;
   fullImgUrl: string = "";
   index: number;
   showLeft: boolean = true; 
   showRight: boolean = true;
+  shows: any[] = [];
+  mapId: number;
+  description: string = "";
+  imageBlobUrl = [];
+  imageBlobUrlBanner = [];
+  picturesData: any;
+  noPics: boolean = false;
+  isFetchingPics: boolean = false;
+  tempArr: any;
+  isLoading: boolean =false; 
+  showDescriptionArray = [];
   
 
   constructor(
     private location: Location,
+    private connectionService : ConnectionService
+
     //private lightbox: Lightbox,
   ) {}
 
   ngOnInit(): void {
-    console.log(this._albums.length);
-   
+    //console.log(this._albums.length);
+    this.refresh();
   }
+  refresh(){
+    let maps = this.connectionService.getMaps();
+    //console.log(maps);
+    maps.subscribe(data => {
+      console.log(data);
+      this.shows = data;
+    })
+    this.getBanner();
+  }
+
+  getBanner(){
+    this.connectionService.getShowCover().subscribe(
+      (val) => { 
+        //console.log(val);
+        this.createImageFromBlobBanner(val);
+      },
+      response => {
+        console.log("POST in error", response);
+      },
+      () => {
+        console.log("POST observable is now completed.");
+      });
+  }
+
+  createImageFromBlobBanner(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+
+    //console.log(reader.result);
+    console.log("#######");
+    
+    this.imageBlobUrlBanner[0] = reader.result;
+  }, false);   
+  if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+
   checkShowButtons(index: number){
     if(index === 0){
       this.showLeft = false;
       this.showRight = true;
-    }else if(index === this._albums.length - 1){
+    }else if(index === this.imageBlobUrl.length - 1){
       this.showRight = false;
       this.showLeft = true;
     }else{
@@ -51,24 +104,126 @@ export class PaintingsComponent implements OnInit {
     this.checkShowButtons(index);
     this.showFullImg = true;
     this.index = index;
-    this.fullImgUrl = this._albums[index].src;
+    //this.fullImgUrl = this._albums[index].src;
     //'../../assets/img/2019Umhverfing/2019Umhverfing'+ index +'.jpg'
     console.log("jáaa", index);
+    //console.log()
+    //console.log(this.imageBlobUrl.image);
+    this.fullImgUrl = this.imageBlobUrl[index].url;
+    this.imageBlobUrl.map(t => {
+      console.log(t.image);
+    })
   }
   nextImg(){
     this.index -= 1;
     this.checkShowButtons(this.index);
-    this.fullImgUrl = this._albums[this.index].src;
+    this.fullImgUrl = this.imageBlobUrl[this.index].url;
   }
   lastImg(){
     this.index += 1;
     this.checkShowButtons(this.index);
-    this.fullImgUrl = this._albums[this.index].src;
+    this.fullImgUrl =this.imageBlobUrl[this.index].url;
   }
   goBack(){
     this.showFullImg = false;
   }
-  
+  goToShow(index: number){
+    console.log(index);
+    console.log(this.shows[index]);
+
+    this.mapId = this.shows[index].id;
+    this.chosen = this.shows[index].name;
+    this.description = this.shows[index].description;
+    this.showFullImg = false;
+    this.imageBlobUrl = [];
+    this.isLoading = true;
+    this.connectionService.getAllPicDescription(this.shows[index].id).subscribe(t => {
+      console.log("jess");
+      console.log(t);
+      this.showDescriptionArray = t;
+    })
+    this.connectionService.getFilesInfo(this.mapId)
+    .subscribe(t => {
+      console.log("##")
+      console.log(t);
+      //console.log(t.length);
+      //length: t.length;
+      this.tempArr = [];
+      this.picturesData = t;
+      this.tempArr[0] = t[0]; 
+      for(let i = 1 ; i < t.length; i++){
+        this.tempArr.push(t[i]);
+        
+      }
+      
+      
+      console.log(this.tempArr);
+      //this.tempArr.sort();
+      this.tempArr.sort(function(a, b) {
+        return a.id - b.id;
+      });
+      console.log(this.tempArr);
+      this.tempArr.map(item => {
+        this.mapThroughPics(item, this.mapId );
+
+      })
+      this.isFetchingPics = false;
+    })
+  }
+  mapThroughPics(pic , mapId){
+    console.log(pic.id);
+    this.connectionService.getFile(mapId, pic.id)
+    .subscribe(
+      (val) => { 
+        //console.log(val);
+        this.createImageFromBlob(val, pic);
+      },
+      response => {
+        console.log("POST in error", response);
+      },
+      () => {
+        console.log("POST observable is now completed.");
+      });
+  }
+  createImageFromBlob(image: Blob, pic: any) {
+    let reader = new FileReader();
+    let description;
+    reader.addEventListener("load", () => {
+      //console.log(reader.result);
+     // console.log(image)
+     this.showDescriptionArray.map(t => {
+      //console.log(t);
+      //console.log(pic);
+      if(t.photoId === pic.id){
+        //console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        description = {
+          "title": t.title,
+          "description": t.description,
+          "size": t.size,
+          "photoId": t.photoId
+        }
+        
+      }
+    })
+     let obj = {
+       "image": pic, 
+       "url": reader.result,
+       "description": description
+     }
+
+     console.log("halló? ");
+      if(this.imageBlobUrl.length === 0){
+        this.imageBlobUrl[0] = obj;
+      }else{
+        this.imageBlobUrl.push(obj);
+      }
+      //this.isFetchingPics = 
+    }, false);
+  if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+  /*
   go1980(){
     console.log("halló??");
     this.chosen = "1980 / Gallerí Djúpið";
@@ -447,5 +602,5 @@ export class PaintingsComponent implements OnInit {
     }
   }
   
-
+*/
 }
