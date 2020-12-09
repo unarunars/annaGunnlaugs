@@ -9,12 +9,30 @@
 <div class = "show" *ngFor = "let show of map; let i = index">
     <h3>{{show.name}}</h3>
     <p>{{show.description}}</p>
-    <button mat-button (click) = "goToShow(i)" >Fara í möppu</button>
-    <button mat-button (click) = "deleteShow(show)" >Eyða möppu</button>
+    <div *ngIf = "!isChangingShow">
+      <button mat-button (click) = "goToShow(i)" >Fara í möppu</button>
+      <button mat-button (click) = "changeShow(show)" >Breyta sýningu</button>
+      <button mat-button (click) = "deleteShow(show)" >Eyða möppu</button>
+    </div>
+    <div *ngIf = "isChangingShow && show === selectedShow">
+      <h3>Breyta sýningu</h3>
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Titill </mat-label>
+            <input matInput (keyup)="onKeyTitle($event)" >
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Texti</mat-label>
+            <textarea matInput (keyup)="onKeyDescription($event)"></textarea>
+          </mat-form-field>
+        </form>
+      <button mat-button (click) = "updateMap(show)">Staðfesta</button>
+      <button mat-button (click) = "cancelUpdateMap()">Hætta við</button>
+    </div>
 
 </div>
-<div>
-  <h3>Bæta við sýningu</h3>
+<div class = "extra">
+  <h1>Bæta við sýningu</h1>
     <form class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>Titill </mat-label>
@@ -52,12 +70,33 @@
   </div>
   <div class = "show" *ngFor = "let picUrl of imageBlobUrl; let i = index">
     <img [src]="picUrl.url">
-    <p>{{picUrl.image.id}}</p>
-    <div *ngIf = "picUrl.description">
-      <p>{{picUrl.description.title}}</p>
-      <p>{{picUrl.description.size}}</p>
-      <p>{{picUrl.description.description}}</p>
-      <p>{{picUrl.description.photoId}}</p>
+    <div *ngIf = "picUrl.description && !isChangeindDescription">
+      <p>Titill: {{picUrl.description.title}}</p>
+      <p>Stærð: {{picUrl.description.size}}</p>
+      <p>Texti: {{picUrl.description.description}}</p>
+    <button mat-button (click) = "updatePicDescription(picUrl.image)">Breyta myndatexta </button> 
+    <button mat-button (click) = "deletePicDescription(picUrl.image.id)">Eyða myndatexta </button> 
+
+
+    </div>
+    <div *ngIf = "isChangeindDescription && picUrl.image === selectedImage">
+      <div>
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Titill</mat-label>
+            <input matInput (keyup)="onKeyTitle($event)">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Stærð</mat-label>
+            <input matInput (keyup)="onKeySize($event)">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Leave a comment</mat-label>
+            <textarea matInput (keyup)="onKeyDescription($event)"></textarea>
+          </mat-form-field>
+        </form>
+      </div>
+      <button mat-button (click) = "confirmUpdateDescrption(picUrl.image.id)">Staðfesta </button> 
 
     </div>
     
@@ -79,8 +118,9 @@
         </form>
       </div>
       
-    <button mat-button (click) = "createPicDescription(i)">Staðfesta</button> 
+    <button mat-button (click) = "createPicDescription(picUrl.image)">Staðfesta</button> 
   </div>
+
     <button mat-button (click) = "deletePic(picUrl.image)">Eyða mynd</button> 
 
   </div>

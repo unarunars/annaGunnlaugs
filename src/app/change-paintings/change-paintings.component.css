@@ -2,6 +2,8 @@
     border-bottom-style: solid;
     border-color: gray;
     border-width: 0.5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 .main{
   margin: 20px;
@@ -36,4 +38,7 @@ img{
 .headerButtons{
   display: flex;
   justify-content: space-between;
+}
+.extra{
+  margin-top: 10px;
 }

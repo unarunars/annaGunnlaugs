@@ -1,39 +1,36 @@
 <div class = main >
     <div class= "banner">
-
-    <div  *ngIf = "imageBlobUrl.length === 0 && !isLoading">
-        <div *ngFor = "let picUrl of imageBlobUrlBanner;">
-            <img [src]="picUrl">
-        </div>
-    </div>
+        <div class= "umhvefing"  >
         
-            <div class= "umhvefing"  >
+
+            <div class = "temp" *ngIf = "imageBlobUrl.length === 0 && !isLoading">
+                <div class = "coverPhoto" *ngFor = "let picUrl of imageBlobUrlBanner;">
+                    <img [src]="picUrl">
+                </div>
+            </div>
+        
             <div class = "grid" *ngIf = "!showFullImg">
             <p>{{this.chosen}}</p>
             <p>{{this.description}}</p>
-                <mat-grid-list cols = "4" rowHeight = "1:1">
-                    <mat-grid-tile *ngFor = "let pic of imageBlobUrl; let i = index "> 
-                        <img class= "img" [src]="pic.url" (click) = open(i)>
-                        <div *ngIf = "pic.description">
-                            <p>{{pic.description.title}}</p>
-                            <p>{{pic.description.size}}</p>
-                            <p>{{pic.description.description}}</p>
-                            <p>{{pic.description.photoId}}</p>
-                        </div>
+                <mat-grid-list class = "gridlist" cols = "4" rowHeight = "1:1">
+                    <mat-grid-tile class = "tile" *ngFor = "let pic of imageBlobUrl; let i = index "> 
                         
+                        <img class= "img" [src]="pic.url" (click) = open(i)>  
                     </mat-grid-tile>
                 </mat-grid-list>
             </div>
+
+
             <div class= "fullImgContainer" *ngIf = "showFullImg">
+            <p >{{this.chosen}}/{{this.description}}</p>
+                <div class = "bigImage"> 
                 <button mat-button *ngIf = "showLeft" (click) = "nextImg()">
                     <span class="material-icons" >
                         keyboard_arrow_left
                     </span> 
                 </button>
-                <div>
                     <img [src] = "fullImgUrl">
                     
-                </div>
                 
                 <button mat-button *ngIf = "showRight" (click) = "lastImg()">
                     <span class="material-icons">
@@ -41,16 +38,23 @@
                     </span>
                 </button>
             </div>
+            <p *ngIf = "showFullImg">{{title}}/{{size}}/{{picDescription}}</p>
+
+            </div>
+
         </div>
     </div>
     
     <div class = "list">
-        <button mat-button *ngIf = "showFullImg" (click) = "goBack()">Til baka</button>
-        <button mat-button (click) = "goHome()">Forsíða/Home</button>
+        <div class = "buttons">
+            <button mat-button *ngIf = "showFullImg" (click) = "goBack()">Til baka</button>
+        </div>
+        <div class = "buttons">
+            <button mat-button (click) = "goHome()">Forsíða/Home</button>
+        </div>
         <!--<button mat-button (clicl) = "goCv()">Um mig- eða hvað hehe</button>-->
-        <div *ngFor = "let show of shows; let i = index">
+        <div class = "buttons" *ngFor = "let show of shows; let i = index">
             <button mat-button (click) = "goToShow(i)">{{show.name}}</button>
-
         </div>
         
     </div>

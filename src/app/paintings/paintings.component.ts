@@ -31,6 +31,9 @@ export class PaintingsComponent implements OnInit {
   tempArr: any;
   isLoading: boolean =false; 
   showDescriptionArray = [];
+  title: string; 
+  size: string;
+  picDescription: string;
   
 
   constructor(
@@ -49,7 +52,9 @@ export class PaintingsComponent implements OnInit {
     //console.log(maps);
     maps.subscribe(data => {
       console.log(data);
-      this.shows = data;
+      this.shows = data.sort(function(a, b) {
+        return a.id - b.id;
+      });
     })
     this.getBanner();
   }
@@ -110,6 +115,9 @@ export class PaintingsComponent implements OnInit {
     //console.log()
     //console.log(this.imageBlobUrl.image);
     this.fullImgUrl = this.imageBlobUrl[index].url;
+    this.title = this.imageBlobUrl[index].description.title;
+    this.size = this.imageBlobUrl[index].description.size;
+    this.picDescription = this.imageBlobUrl[index].description.description;
     this.imageBlobUrl.map(t => {
       console.log(t.image);
     })
@@ -118,11 +126,17 @@ export class PaintingsComponent implements OnInit {
     this.index -= 1;
     this.checkShowButtons(this.index);
     this.fullImgUrl = this.imageBlobUrl[this.index].url;
+    this.title = this.imageBlobUrl[this.index].description.title;
+    this.size = this.imageBlobUrl[this.index].description.size;
+    this.picDescription = this.imageBlobUrl[this.index].description.description;
   }
   lastImg(){
     this.index += 1;
     this.checkShowButtons(this.index);
     this.fullImgUrl =this.imageBlobUrl[this.index].url;
+    this.title = this.imageBlobUrl[this.index].description.title;
+    this.size = this.imageBlobUrl[this.index].description.size;
+    this.picDescription = this.imageBlobUrl[this.index].description.description;
   }
   goBack(){
     this.showFullImg = false;

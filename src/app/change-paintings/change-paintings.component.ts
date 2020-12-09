@@ -26,6 +26,10 @@ export class ChangePaintingsComponent implements OnInit {
   isFetchingPics: boolean = false;
   tempArr: any;
   showDescriptionArray = [];
+  isChangingShow: boolean = false; 
+  selectedShow: any;
+  isChangeindDescription: boolean = false;
+  selectedImage: any;
   @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;
     files  = [];
 
@@ -44,14 +48,17 @@ export class ChangePaintingsComponent implements OnInit {
     //console.log(maps);
     maps.subscribe(data => {
      // console.log(data);
-      this.map = data;
-      return true;
+      this.map= data.sort(function(a, b) {
+        return a.id - b.id;
+      });
+      
     })
     
   }
   refreshButton(){
+    this.getDescription();
     this.getPictures(this.mapId);
-  }
+  }//
   goToShow(index: number){
     //console.log("CHANGE SHOW");
     //console.log(this.map[index]);
@@ -62,7 +69,10 @@ export class ChangePaintingsComponent implements OnInit {
     this.descriptionValues = "",
     this.titleValues = "";
     this.getPictures(this.map[index].id);
-    this.connectionService.getAllPicDescription(this.map[index].id).subscribe(t => {
+    this.getDescription();
+  }
+  getDescription(){
+    this.connectionService.getAllPicDescription(this.mapId).subscribe(t => {
       console.log("jess");
       console.log(t);
       this.showDescriptionArray = t;
@@ -82,6 +92,27 @@ export class ChangePaintingsComponent implements OnInit {
         this.dialog.open(DialogElementsExampleDialog);
       }
     })
+  }
+  changeShow(show){
+    this.selectedShow = show;
+    this.isChangingShow = true; 
+  }
+  updateMap(show){
+    this.isChangeindDescription = false;
+    this.selectedShow =undefined;
+    let obj = {
+      "name": this.titleValues,
+      "description": this.descriptionValues,
+    }
+    this.connectionService.updateMap(obj, show.id).subscribe(t => {
+      console.log(t);
+      this.refresh();
+      console.log("halló´??")
+    })
+  }
+  cancelUpdateMap(){
+    this.isChangingShow = false;
+    this.selectedShow = undefined;
   }
   getPictures(mapId){
     //let length = 0;
@@ -119,6 +150,7 @@ export class ChangePaintingsComponent implements OnInit {
       this.isFetchingPics = false;
     })
   }
+  
   mapThroughPics(pic , mapId){
     //console.log(pic.id);
     this.connectionService.getFile(mapId, pic.id)
@@ -188,45 +220,58 @@ export class ChangePaintingsComponent implements OnInit {
     })
   }
   deletePic(pic: any){
-    //console.log(pic);
-   // console.log(this.picturesData[index])
-    //console.log(this.imageBlobUrl);
-    //console.log(this.mapId);
-  //una einhvað skrýtið hér!
-  if(!this.mapId){
-    return ;
-  }else{
-
-     this.connectionService.deletePic(this.mapId, pic).subscribe( data => {
-     // console.log(data)
-     // console.log(this.mapId);
-      this.getPictures(this.mapId);
-
+    if(!this.mapId){
+      return ;
+    }else{
+      this.connectionService.deletePic(this.mapId, pic).subscribe( data => {
+        this.getPictures(this.mapId);
+      })
+    }
+  }
+  deletePicDescription(id: number){
+    console.log(id);
+    this.connectionService.deleteDescription(this.mapId, id).subscribe( t=> {
+      console.log(t);
+      this.refreshButton();
+      
     })
   }
+  updatePicDescription(image: any){
+    
+    this.isChangeindDescription = true;
+    this.selectedImage = image;
    
   }
-  createPicDescription(index: number){
-    //console.log(index);
-  console.log(this.picturesData[index])
-  console.log(this.imageBlobUrl[index].id);
-   /* title: req.body.title,
-    description: req.body.description,
-    size: req.body.size,
-    photoId: req.body.photoId,
-    mapId: req.body.mapId,*/
+  confirmUpdateDescrption(photoId: number){
+    this.isChangeindDescription = false;
+    this.selectedImage = undefined;
     let obj = {
       "title" : this.titleValues,
       "description": this.descriptionValues,
       "size": this.sizeValues,
-      "photoId": this.picturesData[index].id,
+      "photoId": photoId,
+      "mapId": this.mapId,
+    }
+    this.connectionService.updateDescription(this.mapId, photoId, obj).subscribe(t => {
+      console.log(t);
+      this.refreshButton();
+    })
+  }
+  
+  createPicDescription(image: any){
+  console.log(image)
+    let obj = {
+      "title" : this.titleValues,
+      "description": this.descriptionValues,
+      "size": this.sizeValues,
+      "photoId": image.id,
       "mapId": this.mapId,
     }
    console.log(obj);
-   // console.log(index);
-   /* this.connectionService.postPicDescription(obj).subscribe(data => {
+    this.connectionService.postPicDescription(obj).subscribe(data => {
       console.log(data);
-    })*/
+      this.refreshButton();
+    })
   }
   onKeyTitle(event: any) { // without type info
    // console.log(event.target.value);

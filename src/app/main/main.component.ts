@@ -20,8 +20,8 @@ export class MainComponent implements OnInit {
   //grafísk hönnum/graphics-design
 
   ngOnInit(): void {
-    this.getCv();
     this.getBanner();
+    this.getCv();
 
   }
 

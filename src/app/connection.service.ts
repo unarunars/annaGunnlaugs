@@ -28,6 +28,9 @@ export class ConnectionService {
   postMap(map: any):Observable<any>{
     return this.http.post('http://anna--backend.herokuapp.com/api/map/upload', map)
   }
+  updateMap(map: any, mapId: number):Observable<any>{
+    return this.http.put(`http://anna--backend.herokuapp.com/api/update/map/${mapId}`, map)
+  }
   public sendFormData(formData, mapId :number) {
     console.log("========");
     console.log(mapId);
@@ -109,5 +112,11 @@ export class ConnectionService {
     return this.http.get(`http://anna--backend.herokuapp.com/api/showcover`, {
       responseType: "blob" as "json"
     });
+  }
+  deleteDescription(mapId: number, photoId: number):Observable<any>{
+    return this.http.delete(`http://anna--backend.herokuapp.com/api/file/descriptions/delete/${mapId}/${photoId}`)
+  }
+  updateDescription(mapId: number, photoId: number, show):Observable<any>{
+    return this.http.put(`http://anna--backend.herokuapp.com/api/files/update/${mapId}/${photoId}`,show)
   }
 }
