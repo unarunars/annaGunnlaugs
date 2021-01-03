@@ -5,7 +5,7 @@ Una Rúnarsdóttir (unr2@hi.is)
 
 ## Necessary tools
 
-Download node.js 
+Download [node.js](https://nodejs.org/en/)
 Download angular: npm install -g @angular/cli
 
 ## Development server
