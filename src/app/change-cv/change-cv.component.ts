@@ -9,7 +9,7 @@ import { ConnectionService } from '../connection.service';
  *                admin component. 
  *
  *  Written:       11/12/2020
- *  Last updated:  29/12/2018
+ *  Last updated:  29/12/2020 
  *
  *
  **************************************************************************** */

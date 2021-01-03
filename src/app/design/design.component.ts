@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
  *  Description:  Small component to show the CV.
  *
  *  Written:       11/12/2020
- *  Last updated:  29/12/2018
+ *  Last updated:  29/12/2020 
  *
  *
  **************************************************************************** */
@@ -25,6 +25,9 @@ export class DesignComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  /*
+ * render to go back
+ */
   goHome(){
     this.location.back();
 

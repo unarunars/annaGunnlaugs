@@ -17,8 +17,6 @@ const routes: Routes = [
   { path: 'adminPaintings', component: ChangePaintingsComponent},
   { path: 'adminCv', component: ChangeCVComponent},
   { path: '**', redirectTo: '/home', pathMatch: 'full'},
-  
-  //{ path: '**', component: MainComponent}
 ];
 
 @NgModule({

@@ -13,7 +13,7 @@ import {MatDialog} from '@angular/material/dialog';
  *                choose show you can upload photos to that show.
  *
  *  Written:       11/12/2020
- *  Last updated:  29/12/2018
+ *  Last updated:  29/12/2020 
  *
  *
  **************************************************************************** */
@@ -129,8 +129,8 @@ export class ChangePaintingsComponent implements OnInit {
     this.isChangingShow = true; 
   }
   /*
- * input image as Blob
- * create Image
+ * input show as object
+ * updates the show though connection service
  */
   updateMap(show){
     this.isChangeindDescription = false;
@@ -143,40 +143,36 @@ export class ChangePaintingsComponent implements OnInit {
       this.refresh();
     })
   }
+  /*
+ * cancel changing the show
+ */
   cancelUpdateMap(){
     this.isChangingShow = false;
     this.selectedShow = undefined;
   }
+  /*
+ * input mapId 
+ * get pictures from the show through connection service.
+ * sort it by id
+ */
   getPictures(mapId){
     this.noPics = false;
-    //let length = 0;
-    
-   // console.log("mapId : ", this.mapId);
     this.isFetchingPics = true;
     let tempArr: any = [];
     this.imageBlobUrl = [];
     this.connectionService.getFilesInfo(mapId)
     .subscribe(t => {
-     // console.log("##")
-     // console.log(t);
-      //console.log(t.length);
-      //length: t.length;
       if(t.length !== 0 ){
         this.tempArr = [];
       this.picturesData = t;
       this.tempArr[0] = t[0]; 
       for(let i = 1 ; i < t.length; i++){
         this.tempArr.push(t[i]);
-        
       }
       
-      
-     // console.log(this.tempArr);
-      //this.tempArr.sort();
       this.tempArr.sort(function(a, b) {
         return a.id - b.id;
       });
-     // console.log(this.tempArr);
       this.tempArr.map(item => {
 
         this.mapThroughPics(item, this.mapId );
@@ -190,7 +186,10 @@ export class ChangePaintingsComponent implements OnInit {
       
     })
   }
-  
+  /*
+ * input pic as object, mapId the id of the show.
+ * map though pictures trough connection service
+ */
   mapThroughPics(pic , mapId){
     //console.log(pic.id);
     if(!pic.id){
@@ -210,15 +209,18 @@ export class ChangePaintingsComponent implements OnInit {
         console.log("POST observable is now completed.");
       });
   }
+  /*
+ * input image as blob, pic as object.
+ * creates image from blob data
+ * and fetch descriptions of the photo
+ */
   createImageFromBlob(image: Blob, pic: any) {
     let reader = new FileReader();
     let description;
     reader.addEventListener("load", () => {
       this.showDescriptionArray.map(t => {
-        //console.log(t);
-        //console.log(pic);
+        
         if(t.photoId === pic.id){
-          //console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
           description = {
             "title": t.title,
             "description": t.description,
@@ -228,32 +230,26 @@ export class ChangePaintingsComponent implements OnInit {
           
         }
       })
-      //console.log(reader.result);
-    // console.log("#######");
      let obj = {
       "image": pic, 
       "url": reader.result,
       "description" : description
      }
      
-
-     //console.log("halló? ");
-     //console.log(obj);
       if(this.imageBlobUrl.length === 0){
         this.imageBlobUrl[0] = obj;
       }else{
         this.imageBlobUrl.push(obj);
       }
-      //this.isFetchingPics = 
     }, false);
   if (image) {
       reader.readAsDataURL(image);
     }
   }
+  /*
+ * creates new show trough connection service
+ */
   createNewMap(){
-    //console.log("create new show")
-    //console.log(this.titleValues);
-    //console.log(this.descriptionValues);
     let obj = {
       "name": this.titleValues,
       "description": this.descriptionValues,
@@ -263,9 +259,10 @@ export class ChangePaintingsComponent implements OnInit {
       this.refresh()
     })
   }
+  /*
+ * creates new show through connection service
+ */
   deletePic(pic: any){
-    console.log("AAAAA");
-    console.log(pic);
     if(!this.mapId){
       return ;
     }else{
@@ -274,20 +271,29 @@ export class ChangePaintingsComponent implements OnInit {
       })
     }
   }
+  /*
+  * input id of the photo 
+  * deletes description of picture through connection service
+  */
   deletePicDescription(id: number){
     
     this.connectionService.deleteDescription(this.mapId, id).subscribe( t=> {
-      console.log(t);
       this.refreshButton();
       
     })
   }
+  /*
+  * input image as object 
+  * to show the input for that image
+  */
   updatePicDescription(image: any){
-    
     this.isChangeindDescription = true;
     this.selectedImage = image;
-   
   }
+  /*
+  * input id of the photo that is updating 
+  * updates the description though connection service
+  */
   confirmUpdateDescrption(photoId: number){
     this.isChangeindDescription = false;
     this.selectedImage = undefined;
@@ -303,7 +309,10 @@ export class ChangePaintingsComponent implements OnInit {
       this.refreshButton();
     })
   }
-  
+  /*
+  * input image as object 
+  * create description for picture
+  */
   createPicDescription(image: any){
   console.log(image)
     let obj = {
@@ -319,36 +328,49 @@ export class ChangePaintingsComponent implements OnInit {
       this.refreshButton();
     })
   }
-  onKeyTitle(event: any) { // without type info
-   // console.log(event.target.value);
+  /*
+  * input key up event
+  * saves the value to global varibale
+  */
+  onKeyTitle(event: any) { 
     this.titleValues = event.target.value;
-    //this.values += event.target.value + ' | ';
   }
-  onKeyDescription(event: any) { // without type info
-    //console.log(event.target.value);
+  /*
+  * input key up event
+  * saves the value to global varibale
+  */
+  onKeyDescription(event: any) { 
     this.descriptionValues = event.target.value;
-    //this.values += event.target.value + ' | ';
   }
-  onKeySize(event: any) { // without type info
-  //  console.log(event.target.value);
+  /*
+  * input key up event
+  * saves the value to global varibale
+  */
+  onKeySize(event: any) { 
     this.sizeValues = event.target.value;
-    //this.values += event.target.value + ' | ';
   }
+  /*
+  * input the photo we are uploading
+  * saves the photo trought connection service
+  */
   sendFile(file) {
     const formData = new FormData();
     formData.append('file', file.data);
     file.inProgress = true;
-    this.connectionService.sendFormData(formData, this.mapId).subscribe(event => {
-      console.log("___________ÖÖ_________")
-      console.log(event)
-      });
+    this.connectionService.sendFormData(formData, this.mapId).subscribe(event => {} );
   }
+  /*
+  * if many photos are choosen we map trought them
+  */
   private sendFiles() {
     this.fileUpload.nativeElement.value = '';
     this.files.forEach(file => {
       this.sendFile(file);
     });
 }
+  /*
+  * get the photo in right format and send the data
+  */
   submitFile() {
     const fileUpload = this.fileUpload.nativeElement;fileUpload.onchange = () => {
     for (let index = 0; index < fileUpload.files.length; index++)
@@ -360,12 +382,18 @@ export class ChangePaintingsComponent implements OnInit {
     };
     fileUpload.click();
 }
+  /*
+  * go back to show
+  */  
   goBack(){
     this.renderToShow = !this.renderToShow;
     this.noPics = false;
   }
   
 }
+/*
+* Dialog html component
+*/
 @Component({
   selector: 'dialog-elements-example-dialog',
   templateUrl: 'dialog-elements-example-dialog.html',

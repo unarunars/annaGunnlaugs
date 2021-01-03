@@ -10,7 +10,7 @@ import { ConnectionService } from '../connection.service';
  *                otherwise render to other components depends on what is chosen. 
  *
  *  Written:       11/12/2020
- *  Last updated:  29/12/2018
+ *  Last updated:  29/12/2020 
  *
  *
  **************************************************************************** */
@@ -36,6 +36,9 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  /*
+ * Change boolean variables which component shall be shown, not render to.
+ */
   goChangePaintings(){
     console.log("já");
     this.changePaintings = true;
@@ -44,6 +47,9 @@ export class AdminComponent implements OnInit {
     this.goShowCover = false;
 
   }
+  /*
+ * Change boolean variables which component shall be shown, not render to.
+ */
   goChangeCv(){
     this.changeCv = true;
     this.showAdmin = false;
@@ -51,26 +57,41 @@ export class AdminComponent implements OnInit {
     this.goShowCover = false;
 
   }
+  /*
+ * Change boolean variables which component shall be shown, not render to.
+ */
   goChangeCover(){
     this.changeCv = false;
     this.showAdmin = false; 
     this.goShowCover = false;
     this.goCover = true;
   }
+  /*
+ * Change boolean variables which component shall be shown, not render to.
+ */
   goChangeShowCover(){
     this.changeCv = false;
     this.showAdmin = false; 
     this.goShowCover = true;
     this.goCover = false;
   }
+  /*
+ * Saves the input to username without have to push some save button 
+ */
   onKeyUser(event){
     console.log(event.target.value)
     this.username = event.target.value;
   }
+  /*
+ * Saves the input to pasword without have to push some save button, just for sec.
+ */
   onKeyPsw(event){
     console.log(event.target.value)
     this.psw = event.target.value;
   }
+  /*
+ * this is the register function. We don't use it but better to have the option. 
+ */
   /*
   register(){
     console.log("register");
@@ -85,6 +106,9 @@ export class AdminComponent implements OnInit {
     this.psw = "";
 
   }*/
+  /*
+ * the login function, talks to the connection service. Clear the pasword. 
+ */
   login(){
     this.errorLogin = false;
     let user = {

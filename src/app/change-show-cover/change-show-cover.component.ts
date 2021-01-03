@@ -9,7 +9,7 @@ import { ConnectionService } from '../connection.service';
  *                admin component. 
  *
  *  Written:       11/12/2020
- *  Last updated:  29/12/2018
+ *  Last updated:  29/12/2020 
  *
  *
  **************************************************************************** */
@@ -32,6 +32,10 @@ export class ChangeShowCoverComponent implements OnInit {
   ngOnInit(): void {
     this.refresh();
   }
+  /*
+  * input the photo we are uploading
+  * saves the photo trought connection service
+  */
   sendFile(file) {
     const formData = new FormData();
     formData.append('file', file.data);
@@ -41,12 +45,18 @@ export class ChangeShowCoverComponent implements OnInit {
       console.log(event)
       });
   }
+  /*
+  * if many photos are choosen we map trought them
+  */
   private sendFiles() {
     this.fileUpload.nativeElement.value = '';
     this.files.forEach(file => {
       this.sendFile(file);
     });
 }
+/*
+  * get the photo in right format and send the data
+  */
   submitFile() {
     const fileUpload = this.fileUpload.nativeElement;fileUpload.onchange = () => {
     for (let index = 0; index < fileUpload.files.length; index++)
@@ -58,6 +68,9 @@ export class ChangeShowCoverComponent implements OnInit {
     };
     fileUpload.click();
   }
+  /*
+  * fetch show cover photo needed for this component
+  */
   refresh(){
     this.connectionService.getShowCover().subscribe(
       (val) => { 
@@ -71,25 +84,19 @@ export class ChangeShowCoverComponent implements OnInit {
         console.log("POST observable is now completed.");
       });
   }
+  /*
+  * input image as Blob
+  * create Image
+  */
   createImageFromBlob(image: Blob) {
     let reader = new FileReader();
     reader.addEventListener("load", () => {
-
-      //console.log(reader.result);
-     console.log("#######");
-     
-  
     this.imageBlobUrl[0] = reader.result;
   }, false);   
   if (image) {
       reader.readAsDataURL(image);
     }
   }
-  goBack(){
-    console.log("todo go back");
-
-  }
-  
 
 }
 
