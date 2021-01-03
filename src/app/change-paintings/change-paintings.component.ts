@@ -5,6 +5,18 @@ import { catchError, map } from 'rxjs/operators';
 import { ConnectionService } from '../connection.service';
 import {MatDialog} from '@angular/material/dialog';
 
+/* *****************************************************************************
+ *  Name:    Una Rúnarsdóttir
+ *
+ *  Description:  This component is for admins to change shows and upload photos in them.
+ *                First all the shows comes up and can change them or delete. When you
+ *                choose show you can upload photos to that show.
+ *
+ *  Written:       11/12/2020
+ *  Last updated:  29/12/2018
+ *
+ *
+ **************************************************************************** */
 @Component({
   selector: 'app-change-paintings',
   templateUrl: './change-paintings.component.html',
@@ -39,15 +51,15 @@ export class ChangePaintingsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("Byrja");
     this.refresh();
   }
- 
+ /*
+ * fetch the shows from connection service
+ * and sort it by id
+ */
   refresh(){
     let maps = this.connectionService.getMaps();
-    //console.log(maps);
     maps.subscribe(data => {
-     // console.log(data);
       this.map= data.sort(function(a, b) {
         return a.id - b.id;
       });
@@ -55,13 +67,21 @@ export class ChangePaintingsComponent implements OnInit {
     })
     
   }
+/*
+ * fetch the data, function for refresh button. 
+ */
   refreshButton(){
     this.getDescription();
     this.getPictures(this.mapId);
-  }//
+  }
+  /*
+ * input index of map array
+ * render to the show selected
+ * fetches all data for selected show
+ */
   goToShow(index: number){
-    //console.log("CHANGE SHOW");
-    //console.log(this.map[index]);
+    console.log("CHANGE SHOW");
+    console.log(this.map[index]);
     this.renderToShow = true;
     this.showTitle = this.map[index].name;
     this.showDescription = this.map[index].description;
@@ -71,6 +91,9 @@ export class ChangePaintingsComponent implements OnInit {
     this.getPictures(this.map[index].id);
     this.getDescription();
   }
+  /*
+ * fetch descriptions from connection service
+ */
   getDescription(){
     this.connectionService.getAllPicDescription(this.mapId).subscribe(t => {
       console.log("jess");
@@ -78,25 +101,37 @@ export class ChangePaintingsComponent implements OnInit {
       this.showDescriptionArray = t;
     })
   }
+  /*
+ * input show as object
+ * gets file info from show id to check if the show is empty
+ * if not delete the show otherwise dilaog pops up
+ */
   deleteShow(show: any){
     console.log(show);
     this.connectionService.getFilesInfo(show.id)
     .subscribe(t => {
-      console.log(t.length);
       if(t.length === 0){
         this.connectionService.deleteShow(show.id)
         .subscribe(data => {
-          console.log(data);
+          this.refresh();
         })
       }else{
         this.dialog.open(DialogElementsExampleDialog);
       }
     })
   }
+  /*
+ * input show as object. 
+ * function for progress bar
+ */
   changeShow(show){
     this.selectedShow = show;
     this.isChangingShow = true; 
   }
+  /*
+ * input image as Blob
+ * create Image
+ */
   updateMap(show){
     this.isChangeindDescription = false;
     this.selectedShow =undefined;
@@ -105,9 +140,7 @@ export class ChangePaintingsComponent implements OnInit {
       "description": this.descriptionValues,
     }
     this.connectionService.updateMap(obj, show.id).subscribe(t => {
-      console.log(t);
       this.refresh();
-      console.log("halló´??")
     })
   }
   cancelUpdateMap(){
@@ -115,6 +148,7 @@ export class ChangePaintingsComponent implements OnInit {
     this.selectedShow = undefined;
   }
   getPictures(mapId){
+    this.noPics = false;
     //let length = 0;
     
    // console.log("mapId : ", this.mapId);
@@ -127,7 +161,8 @@ export class ChangePaintingsComponent implements OnInit {
      // console.log(t);
       //console.log(t.length);
       //length: t.length;
-      this.tempArr = [];
+      if(t.length !== 0 ){
+        this.tempArr = [];
       this.picturesData = t;
       this.tempArr[0] = t[0]; 
       for(let i = 1 ; i < t.length; i++){
@@ -148,11 +183,20 @@ export class ChangePaintingsComponent implements OnInit {
 
       })
       this.isFetchingPics = false;
+      }else{
+        this.isFetchingPics = false;
+        this.noPics = true;
+      }
+      
     })
   }
   
   mapThroughPics(pic , mapId){
     //console.log(pic.id);
+    if(!pic.id){
+      console.log("ætti að fara hingað?");
+      return ; 
+    }
     this.connectionService.getFile(mapId, pic.id)
     .subscribe(
       (val) => { 
@@ -220,16 +264,18 @@ export class ChangePaintingsComponent implements OnInit {
     })
   }
   deletePic(pic: any){
+    console.log("AAAAA");
+    console.log(pic);
     if(!this.mapId){
       return ;
     }else{
-      this.connectionService.deletePic(this.mapId, pic).subscribe( data => {
+      this.connectionService.deletePic(this.mapId, pic.id).subscribe( data => {
         this.getPictures(this.mapId);
       })
     }
   }
   deletePicDescription(id: number){
-    console.log(id);
+    
     this.connectionService.deleteDescription(this.mapId, id).subscribe( t=> {
       console.log(t);
       this.refreshButton();

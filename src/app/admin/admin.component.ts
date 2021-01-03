@@ -3,6 +3,18 @@ import {FormControl, Validators} from '@angular/forms';
 import { ConnectionService } from '../connection.service';
 
 
+/* *****************************************************************************
+ *  Name:    Una Rúnarsdóttir
+ *
+ *  Description:  The admin component. When not logged in the login input is shown
+ *                otherwise render to other components depends on what is chosen. 
+ *
+ *  Written:       11/12/2020
+ *  Last updated:  29/12/2018
+ *
+ *
+ **************************************************************************** */
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',

@@ -68,6 +68,7 @@
   <div class = "title" *ngIf = "noPics">
     <h1>Engar myndir í þessari sýningu</h1>
   </div>
+   
   <div class = "show" *ngFor = "let picUrl of imageBlobUrl; let i = index">
     <img [src]="picUrl.url">
     <div *ngIf = "picUrl.description && !isChangeindDescription">
@@ -123,7 +124,7 @@
 
     <button mat-button (click) = "deletePic(picUrl.image)">Eyða mynd</button> 
 
-  </div>
+  </div> 
   <div>
     <div>
       <ul>

@@ -4,7 +4,17 @@ import { ConnectionService } from '../connection.service';
 
 //import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 
-
+/* *****************************************************************************
+ *  Name:    Una Rúnarsdóttir
+ *
+ *  Description:   The component where all the shows and maps are shown for users, 
+ *                 not the admin side. User can choose show, view the photos big or small. 
+ *
+ *  Written:       11/12/2020
+ *  Last updated:  29/12/2018
+ *
+ *
+ **************************************************************************** */
 
 @Component({
   selector: 'app-paintings',

@@ -1,6 +1,19 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ConnectionService } from '../connection.service';
 
+/* *****************************************************************************
+ *  Name:    Una Rúnarsdóttir
+ *
+ *  Description:  This component is for changing the cover photo on the show side.
+ *                Only for admins, can only go to this side if loged in and from the 
+ *                admin component. 
+ *
+ *  Written:       11/12/2020
+ *  Last updated:  29/12/2018
+ *
+ *
+ **************************************************************************** */
+
 @Component({
   selector: 'app-change-show-cover',
   templateUrl: './change-show-cover.component.html',

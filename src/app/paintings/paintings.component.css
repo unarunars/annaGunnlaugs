@@ -74,9 +74,11 @@ p{
 .bigImage{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    
 }
-
+.bigImage button{
+    height: 50px;
+}
 .temp{
     height: 100%;
 }

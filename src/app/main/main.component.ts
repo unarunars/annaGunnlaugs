@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ConnectionService } from '../connection.service';
 
+/* *****************************************************************************
+ *  Name:    Una Rúnarsdóttir
+ *
+ *  Description:  The main component for users, not admin. 
+ *
+ *  Written:       11/12/2020
+ *  Last updated:  29/12/2018
+ *
+ *
+ **************************************************************************** */
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
