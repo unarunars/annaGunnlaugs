@@ -29,7 +29,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   getMaps(): Observable<any>{
-    return this.http.get('http://anna--backend.herokuapp.com/api/map/info')
+    return this.http.get('https://anna--backend.herokuapp.com/api/map/info')
   }
   /*
  * Input mapId of the show selected
@@ -38,7 +38,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   getFile(mapId: number ,id: number):Observable<any>{
-    return this.http.get(`http://anna--backend.herokuapp.com/api/file/${mapId}/${id}`, {
+    return this.http.get(`https://anna--backend.herokuapp.com/api/file/${mapId}/${id}`, {
       responseType: "blob" as "json"
     });
   }
@@ -48,7 +48,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   getFilesInfo(mapId: number):Observable<any>{
-    return this.http.get(`http://anna--backend.herokuapp.com/api/file/info/${mapId}`)
+    return this.http.get(`https://anna--backend.herokuapp.com/api/file/info/${mapId}`)
   }
   /*
  * Input map as object
@@ -56,7 +56,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   postMap(map: any):Observable<any>{
-    return this.http.post('http://anna--backend.herokuapp.com/api/map/upload', map)
+    return this.http.post('https://anna--backend.herokuapp.com/api/map/upload', map)
   }
   /*
  * Input map as object
@@ -65,7 +65,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   updateMap(map: any, mapId: number):Observable<any>{
-    return this.http.put(`http://anna--backend.herokuapp.com/api/update/map/${mapId}`, map)
+    return this.http.put(`https://anna--backend.herokuapp.com/api/update/map/${mapId}`, map)
   }
   /*
  * Input photo as formdata
@@ -76,7 +76,7 @@ export class ConnectionService {
   public sendFormData(formData, mapId :number) {
     console.log("========");
     console.log(mapId);
-    return this.http.post<any>(`http://anna--backend.herokuapp.com/api/file/upload/${mapId}`, formData, {
+    return this.http.post<any>(`https://anna--backend.herokuapp.com/api/file/upload/${mapId}`, formData, {
       reportProgress: true,
       observe: 'events'
     });
@@ -87,7 +87,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   postPicDescription(descriptions: any):Observable<any>{
-    return this.http.post('http://anna--backend.herokuapp.com/api/file/description/upload', descriptions)
+    return this.http.post('https://anna--backend.herokuapp.com/api/file/description/upload', descriptions)
   }
   /*
  * Input id of the map
@@ -96,7 +96,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   getPicDescription(mapId: number, id: number):Observable<any>{
-    return this.http.get(`http://anna--backend.herokuapp.com/api/file/description/${mapId}/${id}`)
+    return this.http.get(`https://anna--backend.herokuapp.com/api/file/description/${mapId}/${id}`)
   }
   /*
  * Input id of the map
@@ -104,7 +104,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   getAllPicDescription(mapId: any):Observable<any>{
-    return this.http.get(`http://anna--backend.herokuapp.com/api/files/getAllDescription/${mapId}`)
+    return this.http.get(`https://anna--backend.herokuapp.com/api/files/getAllDescription/${mapId}`)
   }
   /*
  * Input id of the map
@@ -113,7 +113,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   deletePic(mapId: number, id: number):Observable<any>{
-    return this.http.delete(`http://anna--backend.herokuapp.com/api/file/${mapId}/${id}`)
+    return this.http.delete(`https://anna--backend.herokuapp.com/api/file/${mapId}/${id}`)
   }
   /*
  * Input if of the map
@@ -121,7 +121,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   deleteShow(mapId: number):Observable<any>{
-    return this.http.delete(`http://anna--backend.herokuapp.com/api/map/${mapId}`)
+    return this.http.delete(`https://anna--backend.herokuapp.com/api/map/${mapId}`)
   }
   /*
  * Input user as object
@@ -129,7 +129,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   register(user: any):Observable<any>{
-    return this.http.post('http://anna--backend.herokuapp.com/api/users', user)
+    return this.http.post('https://anna--backend.herokuapp.com/api/users', user)
   }
   /*
  * Input user as object
@@ -137,7 +137,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   login(user: any):Observable<any>{
-    return this.http.post('http://anna--backend.herokuapp.com/api/login', user)
+    return this.http.post('https://anna--backend.herokuapp.com/api/login', user)
   }
 /*
  * Input image as formdata
@@ -145,7 +145,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   postCv(formData):Observable<any>{
-    return this.http.post('http://anna--backend.herokuapp.com/api/cv/upload', formData,{
+    return this.http.post('https://anna--backend.herokuapp.com/api/cv/upload', formData,{
       reportProgress: true,
       observe: 'events'
     })
@@ -156,7 +156,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   updateCv(formData):Observable<any>{
-    return this.http.put('http://anna--backend.herokuapp.com/api/cv/update', formData,{
+    return this.http.put('https://anna--backend.herokuapp.com/api/cv/update', formData,{
       reportProgress: true,
       observe: 'events'
     })
@@ -167,7 +167,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   getCv():Observable<any>{
-    return this.http.get(`http://anna--backend.herokuapp.com/api/cv`, {
+    return this.http.get(`https://anna--backend.herokuapp.com/api/cv`, {
       responseType: "blob" as "json"
     });
   }
@@ -177,7 +177,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   postCover(formData):Observable<any>{
-    return this.http.post('http://anna--backend.herokuapp.com/api/cover/upload', formData,{
+    return this.http.post('https://anna--backend.herokuapp.com/api/cover/upload', formData,{
       reportProgress: true,
       observe: 'events'
     })
@@ -188,7 +188,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   updateCover(formData):Observable<any>{
-    return this.http.put('http://anna--backend.herokuapp.com/api/cover/update', formData,{
+    return this.http.put('https://anna--backend.herokuapp.com/api/cover/update', formData,{
       reportProgress: true,
       observe: 'events'
     })
@@ -199,7 +199,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   getCover():Observable<any>{
-    return this.http.get(`http://anna--backend.herokuapp.com/api/cover`, {
+    return this.http.get(`https://anna--backend.herokuapp.com/api/cover`, {
       responseType: "blob" as "json"
     });
   }
@@ -209,7 +209,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   postShowCover(formData):Observable<any>{
-    return this.http.post('http://anna--backend.herokuapp.com/api/showcover/upload', formData,{
+    return this.http.post('https://anna--backend.herokuapp.com/api/showcover/upload', formData,{
       reportProgress: true,
       observe: 'events'
     })
@@ -220,7 +220,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   updateShowCover(formData):Observable<any>{
-    return this.http.put('http://anna--backend.herokuapp.com/api/showcover/update', formData,{
+    return this.http.put('https://anna--backend.herokuapp.com/api/showcover/update', formData,{
       reportProgress: true,
       observe: 'events'
     })
@@ -231,7 +231,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   getShowCover():Observable<any>{
-    return this.http.get(`http://anna--backend.herokuapp.com/api/showcover`, {
+    return this.http.get(`https://anna--backend.herokuapp.com/api/showcover`, {
       responseType: "blob" as "json"
     });
   }
@@ -242,7 +242,7 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   deleteDescription(mapId: number, photoId: number):Observable<any>{
-    return this.http.delete(`http://anna--backend.herokuapp.com/api/file/descriptions/delete/${mapId}/${photoId}`)
+    return this.http.delete(`https://anna--backend.herokuapp.com/api/file/descriptions/delete/${mapId}/${photoId}`)
   }
   /*
  * Input id of the map
@@ -252,6 +252,6 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   updateDescription(mapId: number, photoId: number, show):Observable<any>{
-    return this.http.put(`http://anna--backend.herokuapp.com/api/files/update/${mapId}/${photoId}`,show)
+    return this.http.put(`https://anna--backend.herokuapp.com/api/files/update/${mapId}/${photoId}`,show)
   }
 }
