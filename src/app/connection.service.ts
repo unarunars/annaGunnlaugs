@@ -39,7 +39,8 @@ export class ConnectionService {
  */
   getFile(mapId: number ,id: number):Observable<any>{
     return this.http.get(`https://anna--backend.herokuapp.com/api/file/${mapId}/${id}`, {
-      responseType: "blob" as "json"
+      responseType: "blob" as "json",
+
     });
   }
   /*
@@ -199,8 +200,11 @@ export class ConnectionService {
  * Returns the data as Observerable
  */
   getCover():Observable<any>{
+    const headers = new HttpHeaders()
+      .append('Access-Control-Allow-Origin', '*');
     return this.http.get(`https://anna--backend.herokuapp.com/api/cover`, {
-      responseType: "blob" as "json"
+      responseType: "blob" as "json",
+      headers
     });
   }
   /*
