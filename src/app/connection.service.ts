@@ -202,7 +202,7 @@ export class ConnectionService {
   getCover():Observable<any>{
     const headers = new HttpHeaders()
       .append('Access-Control-Allow-Origin', '*');
-    return this.http.get(`https://anna--backend.herokuapp.com/api/cover`, {
+    return this.http.get(`http://anna--backend.herokuapp.com/api/cover`, {
       responseType: "blob" as "json",
       headers
     });
