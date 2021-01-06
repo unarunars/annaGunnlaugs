@@ -204,8 +204,8 @@ export class ConnectionService {
       .append('Access-Control-Allow-Origin', '*')
       .append('Access-Control-Allow-Methods', 'GET');
     return this.http.get(`https://anna--backend.herokuapp.com/api/cover`, {
-      //responseType: "blob" as "json",
-      headers: headers,
+      responseType: "blob" as "json",
+     // headers: headers,
     });
   }
   /*
