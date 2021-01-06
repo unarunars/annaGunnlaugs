@@ -2,6 +2,7 @@
     <h1>Breyta forsíðumynd sýningarsíðu</h1>
     <div class = "headerButtons">
         <button mat-button (click) = "refresh()">
+        <p>Breytingin sést þegar þú ýtir hér</p>
           <span class="material-icons">
             refresh
             </span>  
@@ -9,7 +10,7 @@
       </div>
       <div>
         <button mat-button (click)="submitFile()">
-            Breyta um ferilskrá mynd
+            Breyta mynd
         </button>
         <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;" />
     </div>

@@ -74,7 +74,7 @@ p{
 .bigImage{
     display: flex;
     flex-direction: row;
-    
+    align-items: center;
 }
 .bigImage button{
     height: 50px;

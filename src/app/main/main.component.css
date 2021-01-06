@@ -1,14 +1,18 @@
 .main{
-    background-color: gray;
+    background-color: white;
     height: 100%;
     display: flex;
-    width: 100%;
+    width: 60%;
+    z-index: 1000;
+}
+.main img{
+    margin: auto;
 }
 .banner{
-    background-color: white;
+    background-color:white;
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 100%;
     height: 100%;
 }
 button{
@@ -47,8 +51,7 @@ button{
 }
 
 .banner img{
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
 }
 img{
     max-width: 100%;

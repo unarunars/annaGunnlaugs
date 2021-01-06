@@ -1,11 +1,12 @@
 <div class = main *ngIf = "show">
-    <div *ngIf = "!showCv">
-        <div class = "banner" *ngFor = "let picUrl of imageBlobUrlBanner;">
+    
+    <div  *ngIf = "showCv">
+        <div class="banner" *ngFor = "let picUrl of imageBlobUrlCv;">
             <img [src]="picUrl">
         </div>
     </div>
-    <div  *ngIf = "showCv">
-        <div class="banner" *ngFor = "let picUrl of imageBlobUrlCv;">
+    <div *ngIf = "!showCv">
+        <div class = "banner" *ngFor = "let picUrl of imageBlobUrlBanner;">
             <img [src]="picUrl">
         </div>
     </div>
